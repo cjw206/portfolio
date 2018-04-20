@@ -283,5 +283,5 @@ firebase.json
 
 # ignore appsettings
 **/appsettings.Development.json
-**/appsettings.staging.json
-**/appsettings.production.json
+**/appsettings.Staging.json
+**/appsettings.Production.json
