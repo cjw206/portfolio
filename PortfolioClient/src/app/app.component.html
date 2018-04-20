@@ -1,0 +1,43 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">
+            </a>
+            <span class="navbar-brand">My Portfolio</span>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">
+              About <span class="sr-only">(current)</span>
+            </a></li>
+            <li><a href="#">Stack Overflow</a></li>
+            <li><a href="#">Github</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li class="dropdown" dropdown> <!-- {1} -->
+                <a dropdownToggle role="button"> <!-- {2} -->
+                  Dropdown <span class="caret"></span></a>
+                <ul *dropdownMenu class="dropdown-menu"> <!-- {3} -->
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">One more separated link</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div style="text-align:center">
+<h1>Project examples </h1>
+<ul>
+  <li *ngFor="let project of projects">
+    <span>{{project.projectLink}} {{project.projectDescription}}</span>
+  </li>
+  <li>
+      <span>http://carrickjibbles.com Dummy data project <a href="#">About</a></span>
+  </li>
+</ul>
+</div>
+
