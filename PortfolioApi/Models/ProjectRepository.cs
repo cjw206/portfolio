@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using MongoDB.Driver;
+using MongoDB.Bson;
+using System.Threading.Tasks;
 
 namespace PortfolioApi.Models
 {
@@ -11,59 +14,50 @@ namespace PortfolioApi.Models
         public ProjectRepository(ProjectContext ctx)
         {
             context = ctx;
-
-            // if (context.Project.Count() == 0)
-            // {
-            //     context.Project.Add(new Project {ProjectLink = "http://carrickwilson.com", ProjectDescription = "Dummy Project",
-            //         Type = new ProjectType { TypeDescription = "Web Site"}});
-
-            //     context.SaveChanges();
-            // }
         }
 
 
-        public IEnumerable<Project> GetProjects()
+        public async Task<IEnumerable<Project>> GetProjects()
         { 
-            return context.Project.ToList();
+            return await context.projects.Find(_ => true).ToListAsync();
         }
 
-        public Project GetbyId (int Id)
+        public async Task<Project> GetByTitle(string title)
         {
-            return context.Project.FirstOrDefault(x => x.Id == Id);
+            var filter = Builders<Project>.Filter.Eq("Title", title);
+
+            return await context.projects.Find(filter).FirstOrDefaultAsync();
         }
 
-        public void CreateProject(Project project)
+        public async Task CreateProject(Project project)
         {
-            context.Project.Add(project);
-            context.SaveChanges();
+           await context.projects.InsertOneAsync(project);
         }
 
-        public bool UpdateProject(Project project)
+        public async Task<bool> UpdateProject(Project project)
         {
-            var itemToUpdate = context.Project.FirstOrDefault(x => x.Id == project.Id);
+            var filter = Builders<Project>.Filter.Eq("Title", project.Title);
+            var itemToUpdate = context.projects.Find(filter).FirstOrDefault();
 
             if(itemToUpdate == null)
                 return false;
+        
+            var updatedItem = Builders<Project>.Update
+                                                .Set(x => x.Title, project.Title)
+                                                .Set(x => x.ProjectTech, project.ProjectTech)
+                                                .Set(x => x.ProjectLink, project.ProjectLink)
+                                                .Set(x => x.ProjectDescription, project.ProjectDescription);
             
-            itemToUpdate.ProjectDescription = project.ProjectDescription;
-            itemToUpdate.ProjectLink = project.ProjectLink;
-            itemToUpdate.Type = project.Type;
-            
-            context.Project.Update(itemToUpdate);
-            context.SaveChanges();
+            await context.projects.UpdateOneAsync(filter, updatedItem);
 
-            return true;
+             return true;
         }
 
-        public void DeleteProject(int Id)
+        public async Task<DeleteResult> DeleteProject(string title)
         {
-            var projectToDelete = context.Project.FirstOrDefault(x => x.Id == Id);
+            var filter = Builders<Project>.Filter.Eq("Title", title);
 
-            if (projectToDelete == null)
-                return;
-            
-            context.Project.Remove(projectToDelete);
-            context.SaveChanges();
+            return await context.projects.DeleteOneAsync(filter);
         }
     }
 }

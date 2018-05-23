@@ -32,8 +32,15 @@ namespace PortfolioApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<DataConfig>(
+                options => 
+                {
+                    options.ConnectionString = Configuration.GetSection("ConnectionStrings:PortfiolioMongo").Value;
+                    options.Database = "portfolio";
+                }
+            );
+            
             services.AddCors();
-            services.AddDbContext<ProjectContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("PortfolioDB")));
             services.AddMvc();
         }
 

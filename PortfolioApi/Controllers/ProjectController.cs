@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using System.Linq;
 using PortfolioApi.Models;
 
@@ -23,10 +24,10 @@ namespace PortfolioApi.Controllers
             return Ok(projects);
         }
 
-        [HttpGet("{id}", Name = "GetId")]
-        public IActionResult GetById(int id)
+        [HttpGet("{title}", Name = "GetId")]
+        public IActionResult GetById(string title)
         {
-            var project = repository.GetbyId(id);
+            var project = repository.GetByTitle(title);
 
             if(project == null)
                 BadRequest("Project doesn't exist");
@@ -36,18 +37,18 @@ namespace PortfolioApi.Controllers
 
         [HttpPost]
         [Route("AddProject")]
-        public IActionResult CreateProject([FromBody] Project project)
+        public async Task<IActionResult> CreateProject([FromBody] Project project)
         {
-            repository.CreateProject(project);
+            await repository.CreateProject(project);
 
             return Ok();
         }
 
         [HttpPut]
         [Route("Update")]
-        public IActionResult UpdateProject([FromBody] Project project)
+        public async Task<IActionResult> UpdateProject([FromBody] Project project)
         {
-            var success = repository.UpdateProject(project);
+            var success = await repository.UpdateProject(project);
 
             if (!success)
                 BadRequest("Failed to update.");
@@ -55,12 +56,12 @@ namespace PortfolioApi.Controllers
             return new NoContentResult();
         }
 
-        [HttpDelete("{Id}")]
-        public IActionResult DeleteProject(int Id)
+        [HttpDelete("{title}")]
+        public async Task<IActionResult> DeleteProject(string title)
         {
-            repository.DeleteProject(Id);
+            var result = await repository.DeleteProject(title);
 
-            return Ok();
+            return Ok(result);
         }
     }
 }
