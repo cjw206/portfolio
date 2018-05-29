@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using System.Linq;
 using PortfolioApi.Models;
@@ -10,9 +11,9 @@ namespace PortfolioApi.Controllers
     public class ProjectController : Controller
     {
         private ProjectRepository repository;
-        public ProjectController(ProjectContext ctx)
+        public ProjectController(IOptions<DataConfig> settings)
         {
-            repository = new ProjectRepository(ctx);
+            repository = new ProjectRepository(settings);
         }
 
         [HttpGet]

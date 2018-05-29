@@ -35,7 +35,7 @@ namespace PortfolioApi
             services.Configure<DataConfig>(
                 options => 
                 {
-                    options.ConnectionString = Configuration.GetSection("ConnectionStrings:PortfiolioMongo").Value;
+                    options.ConnectionString = Configuration.GetConnectionString("PortfolioMongo");
                     options.Database = "portfolio";
                 }
             );

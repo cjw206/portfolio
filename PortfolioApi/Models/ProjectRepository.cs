@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
 namespace PortfolioApi.Models
@@ -11,9 +12,9 @@ namespace PortfolioApi.Models
     {
         private readonly ProjectContext context;
 
-        public ProjectRepository(ProjectContext ctx)
+        public ProjectRepository(IOptions<DataConfig> settings)
         {
-            context = ctx;
+            context = new ProjectContext(settings);
         }
 
 
