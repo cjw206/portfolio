@@ -31,11 +31,11 @@
 
 <div style="text-align:center">
 <h1>Project examples </h1>
-<ul>
+<!-- <ul>
   <li *ngFor="let project of projects">
     <span>{{project.projectLink}} {{project.projectDescription}}</span>
   </li>
-</ul>
+</ul> -->
 <table class="table table-hover">
     <thead>
       <tr>        
@@ -49,31 +49,10 @@
       <tr *ngFor="let project of projects">
         <td>{{project.title}}</td>
         <td>{{project.projectTech}}</td>
-        <td><button type button="button" class="btn btn-info" data-toggle="modal" data-target="#about-modal">About</button></td>
+        <td><button type="button" class="btn btn-primary" (click)="this.modal.openModal(project.projectDescription)">About</button><modal-content></modal-content></td>
         <td><button type="button"  onclick="location.href='project.projectLink'">Go</button></td>
       </tr>
     </tbody>
   </table>
 </div>
-
-<div class="modal" id="about-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Modal body text goes here.</p>
-          <p></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Save changes</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
 

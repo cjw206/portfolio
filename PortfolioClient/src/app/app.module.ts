@@ -1,16 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { AppComponent } from './app.component';
+import { AboutModal } from './modals/app.aboutmodal';
+import { AboutModalContent } from './modals/app.aboutmodalcontent';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AboutModal,
+    AboutModalContent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +23,8 @@ import { AppComponent } from './app.component';
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot()
   ],
-  providers: [],
+  entryComponents: [AboutModalContent],
+  providers: [BsModalRef, AboutModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

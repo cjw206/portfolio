@@ -18,11 +18,11 @@ namespace PortfolioApi.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        public IActionResult GetProjects()
+        public async Task<IActionResult> GetProjects()
         {
-            var projects = repository.GetProjects();
+            //var projects = repository.GetProjects();
 
-            return Ok(projects);
+            return new ObjectResult(await repository.GetProjects());
         }
 
         [HttpGet("{title}", Name = "GetId")]
