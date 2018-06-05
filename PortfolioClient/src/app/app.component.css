@@ -1,0 +1,32 @@
+/* Title */
+.navbar-default .navbar-brand { 
+    /* color: #777; */
+    color:cornsilk;
+} 
+.jumbotron {
+    /* background-color: transparent; */
+    background-size: 100% 100%;
+    /* background-size: cover; */
+    background-image: url("../assets/stanleylake.jpg")
+}
+.navbar-brand {float:none;}
+.navbar-default .navbar-brand:hover,
+.navbar-default .nav-inner .navbar-brand:focus {
+    /* color: #5E5E5E; */
+    color: black;
+}
+li a {
+    color: whitesmoke;
+    font-style: normal;
+    font-weight: 900;
+}
+.navbar-header {
+    float: left;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    background-color: transparent;
+}
+
+
+

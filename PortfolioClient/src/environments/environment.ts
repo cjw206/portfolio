@@ -5,6 +5,5 @@
 
 export const environment = {
   production: false,
-  // apiRootUrl: 'http://localhost:5000/api/'
-  apiRootUrl: 'https://api.carrickprojects.com/api/'
+  apiRootUrl: 'http://localhost:5000/api/'
 };
