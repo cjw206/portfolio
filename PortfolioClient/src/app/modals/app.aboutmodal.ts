@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { AboutModalContent } from './app.aboutmodalcontent';
+import { Project } from './../models/project';
 
 @Component ({
     selector: 'app-root',
@@ -10,6 +11,7 @@ import { AboutModalContent } from './app.aboutmodalcontent';
 
 export class AboutModal {
     bsModalRef: BsModalRef;
+    projects: Project;
 
     constructor(private modalService: BsModalService) {}
 

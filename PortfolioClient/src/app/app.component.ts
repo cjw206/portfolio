@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 import { Project } from './models/project';
 import { AboutModal } from './modals/app.aboutmodal';
 import { AboutModalContent } from './modals/app.aboutmodalcontent';
@@ -13,10 +14,11 @@ import { AboutModalContent } from './modals/app.aboutmodalcontent';
 export class AppComponent implements OnInit{
   title = 'app';
   projects: any[];
+  apiUrl = environment.apiRootUrl;
 
   constructor(private http: HttpClient, private modal: AboutModal) {}
 
   ngOnInit(): void {
-      this.http.get<Project[]>('http://localhost:5000/api/project/getall/').subscribe(data => this.projects = data);
+      this.http.get<Project[]>(this.apiUrl+'project/getall/').subscribe(data => this.projects = data);
    }
 }
